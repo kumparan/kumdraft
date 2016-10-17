@@ -1,0 +1,40 @@
+{
+  "name": "kumdraft",
+  "version": "1.0.0",
+  "description": "Rich Text Editor powered by DraftJS",
+  "main": "src/App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "agungsuryabangsa@kumparan.com",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.15.1",
+    "draft-js": "^0.9.1",
+    "draft-js-alignment-plugin": "^1.0.3",
+    "draft-js-dnd-plugin": "^1.0.7",
+    "draft-js-emoji-plugin": "^1.2.3",
+    "draft-js-entity-props-plugin": "^1.0.2",
+    "draft-js-focus-plugin": "^1.0.12",
+    "draft-js-image-plugin": "^1.0.3",
+    "draft-js-linkify-plugin": "^1.0.1",
+    "draft-js-mention-plugin": "^1.1.2",
+    "draft-js-plugins-editor": "^2.0.0-beta1",
+    "draft-js-resizeable-plugin": "^1.0.8",
+    "draft-js-table-plugin": "^1.0.4",
+    "draft-js-toolbar-plugin": "^1.0.5",
+    "draft-js-undo-plugin": "^1.0.0",
+    "lodash": "^4.16.4",
+    "react": "^15.4.0-rc.4",
+    "react-bootstrap": "^0.30.5",
+    "react-dom": "^15.4.0-rc.4",
+    "react-html5video": "^1.2.12"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
