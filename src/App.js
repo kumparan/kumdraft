@@ -67,7 +67,7 @@ class App extends Component {
     const { editorState } = this.state;
     if (inlineStyle === 'red' || inlineStyle === 'blue' || inlineStyle === 'tosca' || inlineStyle === 'black' || inlineStyle === 'gray' || inlineStyle === 'grayLight' || inlineStyle === 'green' || inlineStyle === 'yellow' || inlineStyle === 'orange') {
       this.toggleColor(inlineStyle, editorState, this.onChange);
-    } else if (inlineStyle === 'superscript' || inlineStyle === 'subscript' || inlineStyle === 'h1' || inlineStyle === 'h2'|| inlineStyle === 'h3') {
+    } else if (inlineStyle === 'superscript' || inlineStyle === 'subscript' || inlineStyle === 'h1' || inlineStyle === 'h2' || inlineStyle === 'h3') {
       this.toggleHSuperSub(inlineStyle, editorState, this.onChange);
     } else {
       this.onChange(
@@ -216,12 +216,6 @@ class App extends Component {
         ' '
       )
     );
-    this.setState({
-      modalType: '',
-      subModalType: ''
-    }, () => {
-      setTimeout(() => this.focus(), 0);
-    });
   }
 
   _confirmVideo(url) {
@@ -238,12 +232,6 @@ class App extends Component {
         ' ',
       )
     );
-    this.setState({
-      modalType: '',
-      subModalType: '',
-    }, () => {
-      setTimeout(() => this.focus(), 0);
-    });
   };
 
   _confirmTwitter(url) {
