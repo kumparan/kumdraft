@@ -338,6 +338,11 @@ const customStyleMap = {
   'orange': {
     color: '#F9B42D',
   },
+  'h1': {
+    fontSize: '36px',
+    marginTop: '20px',
+    marginBottom: '10px'
+  },
   'h2': {
     fontSize: '30px',
     marginTop: '20px',

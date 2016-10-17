@@ -67,7 +67,7 @@ class App extends Component {
     const { editorState } = this.state;
     if (inlineStyle === 'red' || inlineStyle === 'blue' || inlineStyle === 'tosca' || inlineStyle === 'black' || inlineStyle === 'gray' || inlineStyle === 'grayLight' || inlineStyle === 'green' || inlineStyle === 'yellow' || inlineStyle === 'orange') {
       this.toggleColor(inlineStyle, editorState, this.onChange);
-    } else if (inlineStyle === 'superscript' || inlineStyle === 'subscript' || inlineStyle === 'h1' || inlineStyle === 'h2') {
+    } else if (inlineStyle === 'superscript' || inlineStyle === 'subscript' || inlineStyle === 'h1' || inlineStyle === 'h2'|| inlineStyle === 'h3') {
       this.toggleHSuperSub(inlineStyle, editorState, this.onChange);
     } else {
       this.onChange(
@@ -144,8 +144,6 @@ class App extends Component {
   };
 
   _toggleHSuperSub(toggledHSuperSub, editorState, setEditorState) {
-    // const {editorState} = this.state;
-    console.log(toggledHSuperSub);
     const selection = editorState.getSelection();
     const INLINE_STYLES = {
       superscript: {
@@ -163,6 +161,11 @@ class App extends Component {
       },
       h2: {
         fontSize: '30px',
+        marginTop: '20px',
+        marginBottom: '10px'
+      },
+      h3: {
+        fontSize: '24px',
         marginTop: '20px',
         marginBottom: '10px'
       }
@@ -292,6 +295,9 @@ class App extends Component {
           </button>
           <button onClick={() => this.toggleInlineStyle('ITALIC')}>
             <i className="fa fa-italic" />
+          </button>
+          <button onClick={() => this.toggleInlineStyle('h1')}>
+            H1
           </button>
           <button onClick={() => this.toggleInlineStyle('h2')}>
             H2
