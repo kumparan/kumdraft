@@ -24,6 +24,7 @@
     "draft-js-table-plugin": "^1.0.4",
     "draft-js-toolbar-plugin": "^1.0.5",
     "draft-js-undo-plugin": "^1.0.0",
+    "json-loader": "^0.5.4",
     "lodash": "^4.16.4",
     "react": "^15.4.0-rc.4",
     "react-bootstrap": "^0.30.5",

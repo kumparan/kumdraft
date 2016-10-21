@@ -4,6 +4,7 @@ import { AtomicBlockUtils, convertToRaw, EditorState, Entity, Modifier, RichUtil
 import KumDraft from './KumDraft';
 import MatchTwitterURL from './helpers/MatchTwitterURL';
 import MatchYoutubeURL from './helpers/MatchYoutubeURL';
+import EmojiPicker from 'emojione-picker';
 
 class App extends Component {
   constructor() {
@@ -12,8 +13,14 @@ class App extends Component {
       editorState: EditorState.createEmpty(),
       readOnly: false
     };
+    this.logState = () => {
+      const content = this.state.editorState.getCurrentContent();
+      const res = convertToRaw(content);
+      console.log(res);
+    };
     this.onChange = this._onChange.bind(this);
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
+    this.handleBeforeInput = this._handleBeforeInput.bind(this);
     this.undo = this._undo.bind(this);
     this.redo = this._redo.bind(this);
     this.toggleBlockType = this._toggleBlockType.bind(this);
@@ -25,10 +32,19 @@ class App extends Component {
     this.confirmVideo = this._confirmVideo.bind(this);
     this.confirmTwitter = this._confirmTwitter.bind(this);
     this.confirmYoutube = this._confirmYoutube.bind(this);
+
+    this.addEmoji = this._addEmoji.bind(this);
   }
 
   _onChange(editorState) {
     this.setState({ editorState });
+  }
+
+  _handleBeforeInput(chars) {
+    console.log('handleme');
+    const text = (chars);
+    console.log(text);
+    return false;
   }
 
   _handleKeyCommand(command) {
@@ -267,11 +283,49 @@ class App extends Component {
     );
   }
 
+  _addEmoji(text) {
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    const contentState = editorState.getCurrentContent();
+    function fixedFromCharCode(codePt) {
+      if (codePt > 0xFFFF) {
+        codePt -= 0x10000;
+        return String.fromCharCode(0xD800 + (codePt >> 10), 0xDC00 + (codePt & 0x3FF));
+      }
+      else {
+        return String.fromCharCode(codePt);
+      }
+    }
+    const txt = fixedFromCharCode('0x' + text);
+    console.log(selection);
+    console.log(contentState);
+    let nextEditorState = EditorState.createEmpty();
+    if (selection.isCollapsed()) {
+      const nextContentState = Modifier.insertText(contentState, selection, txt);
+      nextEditorState = EditorState.push(
+        editorState,
+        nextContentState,
+        'insert-characters'
+      );
+    } else {
+      const nextContentState = Modifier.replaceText(contentState, selection, text);
+      nextEditorState = EditorState.push(
+        editorState,
+        nextContentState,
+        'insert-characters'
+      );
+    }
+    this.onChange(nextEditorState);
+  }
+
   render() {
     const { editorState } = this.state;
     return (
       <div>
         <div>
+          <button onClick={this.logState}>
+            Log State
+          </button>
           <button onClick={this.undo} disabled={editorState.getUndoStack().isEmpty()}>
             <i className="fa fa-undo" />
           </button>
@@ -311,6 +365,14 @@ class App extends Component {
           <button onClick={() => this.toggleBlockType('align-justify')}>
             <i className="fa fa-align-justify" />
           </button>
+          <button onClick={() => this.addEmoji('🙈')}>
+            Add Emoji
+          </button>
+          <EmojiPicker search onChange={(data, event) => {
+            console.log("Emoji chosen", data);
+            console.log(data.unicode);
+            this.addEmoji(data.unicode);
+          } } />
         </div>
         <div>
           <button onClick={() => this.toggleInlineStyle('red')}>
@@ -438,7 +500,11 @@ class App extends Component {
           </button>
         </div>
         <div style={{ borderTop: '1px solid black' }}>
-          <KumDraft editorState={this.state.editorState} onChange={this.onChange} readOnly={this.state.readOnly} />
+          <KumDraft
+            editorState={this.state.editorState}
+            onChange={this.onChange}
+            handleBeforeInput={this.handleBeforeInput}
+            readOnly={this.state.readOnly} />
         </div>
       </div>
     );

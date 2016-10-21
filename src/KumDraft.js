@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
-import { AtomicBlockUtils, Editor, EditorState, Entity, RichUtils, ContentBlock, convertToRaw, convertFromRaw, CompositeDecorator, DefaultDraftBlockRenderMap, Modifier } from 'draft-js';
+import { AtomicBlockUtils, Editor, EditorState, Entity, RichUtils, ContentBlock, convertToRaw, convertFromRaw, CompositeDecorator, DefaultDraftBlockRenderMap } from 'draft-js';
 
 import ToHHMMSS from './helpers/ToHHMMSS';
 
@@ -56,7 +56,7 @@ class KumDraft extends Component {
   };
 
   _handleLink() {
-    const { editorState } = this.props;
+    const { editorState, handleBeforeInput } = this.props;
     const selection = editorState.getSelection();
     const startKey = selection.getStartKey();
     const block = editorState.getCurrentContent().getBlockForKey(startKey);
@@ -201,7 +201,7 @@ class KumDraft extends Component {
   };
 
   render() {
-    const { editorState, readOnly } = this.props;
+    const { editorState, handleBeforeInput, readOnly } = this.props;
     const { modalType, subModalType, imagesList, videosList } = this.state;
     /* for bucket-color's selected color' */
     let pickedColor = { color: '#FFF' };
@@ -245,6 +245,7 @@ class KumDraft extends Component {
           blockRendererFn={this.mediaBlockRenderer}
           blockStyleFn={myBlockStyleFn}
           editorState={editorState}
+          handleBeforeInput={handleBeforeInput}
           handleKeyCommand={this.handleKeyCommand}
           onChange={this.onChange}
           ref={ref => this._editor = ref}
