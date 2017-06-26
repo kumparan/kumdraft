@@ -28,10 +28,8 @@ class AtomicBlock extends Component {
         setEditorState(EditorState.forceSelection(editorState, newSelection));
     };
     render() {
-        console.log(this.props.block.getType());
         const entity = Entity.get(this.props.block.getEntityAt(0));
         const type = entity.getType();
-        console.log(type);
         // const content = props.blockProps.getEditorState().getCurrentContent();
         // const entity = content.getEntity(props.block.getEntityAt(0));
         // const data = entity.getData();
@@ -48,7 +46,6 @@ class AtomicBlock extends Component {
         }
         if (type === 'youtube') {
             const {src} = entity.getData();
-            console.log(src);
             return (
                 <div className="video-container">
                     <iframe width="560" height="315" src={src} frameBorder="0" allowFullScreen />

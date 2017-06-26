@@ -27,13 +27,10 @@ export default class TwitterButton extends Component {
             if (isValid) {
                 const urlRegExp = new RegExp(/https:\/\/twitter.com\/[a-zA-Z0-9:;\.\s\(\)\-\\_,]*\/status\//gi);
                 const urlRegExp2 = new RegExp(/\/[a-zA-Z0-9:;\.\s\(\)\-\\_,\?,\=,\%]*/gi);
-                const data = {
-                    id: url.replace(urlRegExp, '').replace(urlRegExp2, '')
-                }
                 this.props.setEditorState(addNewBlock(
                     this.props.getEditorState(),
                     Block.TWITTER, {
-                        data
+                        id: url.replace(urlRegExp, '').replace(urlRegExp2, '')
                     }
                 ));
             } else {

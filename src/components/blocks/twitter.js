@@ -29,12 +29,10 @@ class TwitterBlock extends Component {
     componentDidMount() {
         const { block } = this.props;
         const blockData = block.getData();
-        const data = blockData.get('data');
-        console.log(data);
+        const id = blockData.get('id');
         const renderTweet = () => {
             // const url = 'https://twitter.com/BiLLYKOMPAS/status/773015630039482372'
-            window.twttr.widgets.createTweet(data.id, this._div).then((resolve, reject) => {
-                console.log('added');
+            window.twttr.widgets.createTweet(id, this._div).then((resolve, reject) => {
                 if (typeof (resolve) === 'undefined') {
                     console.log('Tweet is not available');
                     this.setState({
