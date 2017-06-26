@@ -44,7 +44,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-     this._editor.focus();
+    this._editor.focus();
   }
 
   _onChange(editorState, callback = null) {
@@ -61,7 +61,7 @@ class App extends Component {
     // const currentBlock = getCurrentBlock(this.state.editorState);
     // var text = currentBlock.getText();
     return NOT_HANDLED;
-  } 
+  }
 
   _handleBeforeInput(editorState, str, onChange) {
     if (str === '"' || str === '\'') {
@@ -93,8 +93,11 @@ class App extends Component {
         <div>
           <button onClick={() => {
             const content = editorState.getCurrentContent();
-            console.log(convertToRaw(content));  
+            console.log(convertToRaw(content));
           }}>Log State</button>
+          <button onClick={() => {
+            this.setState({ editorEnabled: !this.state.editorEnabled });
+          }}>{editorEnabled ? 'Disable Editor' : 'Enable Editor'}</button>
         </div>
         <ImageButton
           setEditorState={this.onChange}
@@ -107,7 +110,7 @@ class App extends Component {
           getEditorState={() => this.state.editorState} />
         <div style={{ borderTop: '1px solid black' }}>
           <Editor
-            ref={(e) => {this._editor = e;}}
+            ref={(e) => { this._editor = e; }}
             editorState={editorState}
             onChange={this.onChange}
             editorEnabled={editorEnabled}

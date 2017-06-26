@@ -4,21 +4,23 @@
   "description": "Rich Text Editor powered by DraftJS",
   "main": "src/App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --progress --inline --content-base ./public"
   },
-  "author": "agungsuryabangsa@kumparan.com",
+  "author": "agung.surya@kumparan.com",
   "license": "ISC",
   "dependencies": {
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "draft-convert": "^1.4.7",
     "draft-js": "^0.10.1",
     "immutable": "^3.8.1",
+    "linkify-it": "^2.0.3",
     "lodash": "^4.17.4",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
-    "react-html5video": "^1.2.12"
+    "react-html5video": "^1.2.12",
+    "tlds": "^1.189.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
