@@ -1,41 +1,16 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {
-  EditorState,
-  convertToRaw,
-  convertFromRaw,
-  KeyBindingUtil,
-  Modifier,
-  AtomicBlockUtils,
-} from 'draft-js';
-import {
-  Editor,
-  StringToTypeMap,
-  Block,
-  keyBindingFn,
-  createEditorState,
-  addNewBlockAt,
-  beforeInput,
-  getCurrentBlock,
-  // ImageSideButton,
-  rendererFn,
-  // HANDLED,
-  // NOT_HANDLED
-} from './KumDraft';
-// import KumDraft from './KumDraft';
+import { AtomicBlockUtils, convertToRaw, EditorState, Entity, Modifier, RichUtils } from 'draft-js';
+import KumDraft from './KumDraft';
 import MatchTwitterURL from './helpers/MatchTwitterURL';
 import MatchYoutubeURL from './helpers/MatchYoutubeURL';
-import ImageButton from './components/sides/image';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      // editorState: EditorState.createEmpty(),
-      readOnly: false,
-      editorState: createEditorState(),
-      editorEnabled: true,
-      placeholder: 'Write here...',
+      editorState: EditorState.createEmpty(),
+      readOnly: false
     };
     this.onChange = this._onChange.bind(this);
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
@@ -52,19 +27,9 @@ class App extends Component {
     this.confirmYoutube = this._confirmYoutube.bind(this);
   }
 
-  // _onChange(editorState) {
-  //   this.setState({ editorState });
-  // }
-
-  _onChange(editorState, callback = null) {
-    if (this.state.editorEnabled) {
-      this.setState({ editorState }, () => {
-        if (callback) {
-          callback();
-        }
-      });
-    }
-  };
+  _onChange(editorState) {
+    this.setState({ editorState });
+  }
 
   _handleKeyCommand(command) {
     const { editorState } = this.state;
@@ -258,7 +223,7 @@ class App extends Component {
       "url": url,
     };
     const { editorState } = this.state;
-    const { urlValue, urlType } = this.state;
+    const { urlValue, urlType} = this.state;
     const entityKey = Entity.create('video', 'IMMUTABLE', data);
     this.onChange(
       AtomicBlockUtils.insertAtomicBlock(
@@ -306,10 +271,7 @@ class App extends Component {
     const { editorState } = this.state;
     return (
       <div>
-        <ImageButton
-          setEditorState={this.onChange}
-          getEditorState={() => this.state.editorState} />
-        {/*<div>
+        <div>
           <button onClick={this.undo} disabled={editorState.getUndoStack().isEmpty()}>
             <i className="fa fa-undo" />
           </button>
@@ -349,8 +311,8 @@ class App extends Component {
           <button onClick={() => this.toggleBlockType('align-justify')}>
             <i className="fa fa-align-justify" />
           </button>
-        </div>*/}
-        {/*<div>
+        </div>
+        <div>
           <button onClick={() => this.toggleInlineStyle('red')}>
             <span style={{ color: '#d0021b' }}>Red</span>
           </button>
@@ -378,8 +340,8 @@ class App extends Component {
           <button onClick={() => this.toggleInlineStyle('orange')}>
             <span style={{ color: '#F9B42D' }}>Orange</span>
           </button>
-        </div>*/}
-        {/*<div>
+        </div>
+        <div>
           <input
             type="text"
             placeholder="Embed Image"
@@ -390,15 +352,15 @@ class App extends Component {
               } else {
                 this._btnImage.disabled = 'disabled';
               }
-            }} />
+            } } />
           <button
             ref={ref => this._btnImage = ref}
             onClick={() => this.confirmImage(this._embedImage.value)}
             disabled>
             <i className="fa fa-picture-o" />
           </button>
-        </div>*/}
-        {/*<div>
+        </div>
+        <div>
           <input
             type="text"
             placeholder="Embed Video"
@@ -409,15 +371,15 @@ class App extends Component {
               } else {
                 this._btnVideo.disabled = 'disabled';
               }
-            }} />
+            } } />
           <button
             ref={ref => this._btnVideo = ref}
             onClick={() => this.confirmVideo(this._embedVideo.value)}
             disabled>
             <i className="fa fa-video-camera" />
           </button>
-        </div>*/}
-        {/*<div>
+        </div>
+        <div>
           <input
             type="text"
             placeholder="Embed Twitter"
@@ -428,7 +390,7 @@ class App extends Component {
               } else {
                 this._btnTwitter.disabled = 'disabled';
               }
-            }} />
+            } } />
           <button
             ref={ref => this._btnTwitter = ref}
             onClick={() => {
@@ -441,12 +403,12 @@ class App extends Component {
                   alert('Not a Twitter url');
                 }
               }
-            }}
+            } }
             disabled>
             <i className="fa fa-twitter" />
           </button>
-        </div>*/}
-        {/*<div>
+        </div>
+        <div>
           <input
             type="text"
             placeholder="Embed Youtube"
@@ -457,7 +419,7 @@ class App extends Component {
               } else {
                 this._btnYoutube.disabled = 'disabled';
               }
-            }} />
+            } } />
           <button
             ref={ref => this._btnYoutube = ref}
             onClick={() => {
@@ -470,17 +432,13 @@ class App extends Component {
                   alert('Not a Youtube url');
                 }
               }
-            }}
+            } }
             disabled>
             <i className="fa fa-youtube" />
           </button>
-        </div>*/}
+        </div>
         <div style={{ borderTop: '1px solid black' }}>
-          <Editor
-            editorState={this.state.editorState}
-            rendererFn={rendererFn}
-            onChange={this.onChange}
-          />
+          <KumDraft editorState={this.state.editorState} onChange={this.onChange} readOnly={this.state.readOnly} />
         </div>
       </div>
     );
