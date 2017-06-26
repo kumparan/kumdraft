@@ -7,19 +7,17 @@ import MatchTwitterURL from '../../helpers/MatchTwitterURL';
 
 export default class TwitterButton extends Component {
     static propTypes = {
-        setEditorState: PropTypes.func,
-        getEditorState: PropTypes.func
-    };
-
-    constructor(props) {
-        super(props);
+        setEditorState: PropTypes.func.isRequired,
+        getEditorState: PropTypes.func.isRequired
+    }
+    constructor() {
+        super();
         this.state = {
             url: ''
         }
         this.onClick = this._onClick.bind(this);
         this.onChange = this._onChange.bind(this);
     }
-
     _onClick() {
         const { url } = this.state;
         if (url !== '' && url.length > 0) {
@@ -38,7 +36,6 @@ export default class TwitterButton extends Component {
             }
         }
     }
-
     _onChange(event) {
         this.setState({ url: event.currentTarget.value });
     }

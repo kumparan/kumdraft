@@ -2,16 +2,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { EditorBlock, EditorState, SelectionState } from 'draft-js';
-
 import { getCurrentBlock } from '../../model/';
 
-class ImageBlock extends React.Component {
-
+export default class ImageBlock extends React.Component {
+    static propTypes = {
+        block: PropTypes.object,
+        blockProps: PropTypes.object,
+    }
     constructor(props) {
         super(props);
         this.focusBlock = this._focusBlock.bind(this);
     }
-
     _focusBlock() {
         const { block, blockProps } = this.props;
         const { getEditorState, setEditorState } = blockProps;
@@ -28,8 +29,7 @@ class ImageBlock extends React.Component {
             focusOffset: 0,
         });
         setEditorState(EditorState.forceSelection(editorState, newSelection));
-    };
-
+    }
     render() {
         const { block } = this.props;
         const data = block.getData();
@@ -49,10 +49,3 @@ class ImageBlock extends React.Component {
         return <EditorBlock {...this.props} />;
     }
 }
-
-ImageBlock.propTypes = {
-    block: PropTypes.object,
-    blockProps: PropTypes.object,
-};
-
-export default ImageBlock;

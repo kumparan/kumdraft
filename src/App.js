@@ -21,7 +21,10 @@ import {
 // import KumDraft from './KumDraft';
 import MatchTwitterURL from './helpers/MatchTwitterURL';
 import MatchYoutubeURL from './helpers/MatchYoutubeURL';
+
+import BreakButton from './components/sides/break';
 import ImageButton from './components/sides/image';
+import LinkButton from './components/sides/link';
 import TwitterButton from './components/sides/twitter';
 import YoutubeButton from './components/sides/youtube';
 
@@ -38,15 +41,17 @@ class App extends Component {
       editorEnabled: true,
       placeholder: 'Write here...',
     };
-    this.onChange = this._onChange.bind(this);
+    this.focus = this._focus.bind(this);
     this.handleReturn = this._handleReturn.bind(this);
     this.handleBeforeInput = this._handleBeforeInput.bind(this);
+    this.onChange = this._onChange.bind(this);
   }
-
   componentDidMount() {
+    this.focus();
+  }
+  _focus() {
     this._editor.focus();
   }
-
   _onChange(editorState, callback = null) {
     if (this.state.editorEnabled) {
       this.setState({ editorState }, () => {
@@ -56,13 +61,11 @@ class App extends Component {
       });
     }
   };
-
   _handleReturn(e) {
     // const currentBlock = getCurrentBlock(this.state.editorState);
     // var text = currentBlock.getText();
     return NOT_HANDLED;
   }
-
   _handleBeforeInput(editorState, str, onChange) {
     if (str === '"' || str === '\'') {
       const currentBlock = getCurrentBlock(editorState);
@@ -85,7 +88,6 @@ class App extends Component {
     }
     return beforeInput(editorState, str, onChange, newTypeMap);
   };
-
   render() {
     const { editorEnabled, editorState, placeholder } = this.state;
     return (
@@ -102,13 +104,20 @@ class App extends Component {
         <ImageButton
           setEditorState={this.onChange}
           getEditorState={() => this.state.editorState} />
+        <BreakButton
+          setEditorState={this.onChange}
+          getEditorState={() => this.state.editorState} />
         <TwitterButton
           setEditorState={this.onChange}
           getEditorState={() => this.state.editorState} />
         <YoutubeButton
           setEditorState={this.onChange}
           getEditorState={() => this.state.editorState} />
-        <div style={{ borderTop: '1px solid black' }}>
+        <LinkButton
+          setEditorState={this.onChange}
+          getEditorState={() => this.state.editorState}
+          focus={this.focus} />
+        <div style={{ borderTop: '1px solid black', paddingTop: 8 }}>
           <Editor
             ref={(e) => { this._editor = e; }}
             editorState={editorState}

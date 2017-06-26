@@ -24,7 +24,8 @@ import {
   Entity as E,
   HANDLED,
   NOT_HANDLED,
-  KEY_COMMANDS } from './util/constants';
+  KEY_COMMANDS
+} from './util/constants';
 import beforeInput, { StringToTypeMap } from './util/beforeinput';
 import blockStyleFn from './util/blockStyleFn';
 import {
@@ -75,10 +76,10 @@ class KumDraft extends React.Component {
     })),
     placeholder: PropTypes.string,
     continuousBlocks: PropTypes.arrayOf(PropTypes.string),
-    sideButtons: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      component: PropTypes.func,
-    })),
+    // sideButtons: PropTypes.arrayOf(PropTypes.shape({
+    //   title: PropTypes.string.isRequired,
+    //   component: PropTypes.func,
+    // })),
     editorState: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     handleKeyCommand: PropTypes.func,
@@ -108,12 +109,12 @@ class KumDraft extends React.Component {
       Block.CODE,
       Block.TODO,
     ],
-    sideButtons: [
-      {
-        title: 'Image',
-        component: ImageButton,
-      },
-    ],
+    // sideButtons: [
+    //   {
+    //     title: 'Image',
+    //     component: ImageButton,
+    //   },
+    // ],
     disableToolbar: false,
     showLinkEditToolbar: true,
   };
@@ -128,20 +129,21 @@ class KumDraft extends React.Component {
 
     this.getEditorState = () => this.props.editorState;
 
-    this.onTab = this.onTab.bind(this);
+    this.onTab = this._onTab.bind(this);
+    this.onUpArrow = this._onUpArrow.bind(this);
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.handleBeforeInput = this.handleBeforeInput.bind(this);
     this.handleReturn = this.handleReturn.bind(this);
     this.toggleBlockType = this._toggleBlockType.bind(this);
     this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
-    this.setLink = this.setLink.bind(this);
+    this.setLink = this._setLink.bind(this);
     this.blockRendererFn = this.props.rendererFn(this.onChange, this.getEditorState);
   }
 
   /*
   Implemented to provide nesting of upto 2 levels in ULs or OLs.
   */
-  onTab(e) {
+  _onTab(e) {
     const { editorState } = this.props;
     const newEditorState = RichUtils.onTab(e, editorState, 2);
     if (newEditorState !== editorState) {
@@ -149,7 +151,7 @@ class KumDraft extends React.Component {
     }
   }
 
-  onUpArrow = (e) => {
+  _onUpArrow = (e) => {
     const { editorState } = this.props;
     const content = editorState.getCurrentContent();
     const selection = editorState.getSelection();
@@ -196,7 +198,7 @@ class KumDraft extends React.Component {
   /*
   Adds a hyperlink on the selected text with some basic checks.
   */
-  setLink(url) {
+  _setLink(url) {
     let { editorState } = this.props;
     const selection = editorState.getSelection();
     const content = editorState.getCurrentContent();
@@ -486,8 +488,8 @@ class KumDraft extends React.Component {
               focus={this.focus}
               sideButtons={this.props.sideButtons}
             />
-          )}
-          {!disableToolbar && (
+          )}*/}
+          {/*{!disableToolbar && (
             <Toolbar
               ref={(c) => { this.toolbar = c; }}
               editorNode={this._editorNode}
@@ -500,8 +502,8 @@ class KumDraft extends React.Component {
               blockButtons={this.props.blockButtons}
               inlineButtons={this.props.inlineButtons}
             />
-          )}
-          {isCursorLink && (
+          )}*/}
+          {/*{isCursorLink && (
             <LinkEditComponent
               {...isCursorLink}
               editorState={editorState}

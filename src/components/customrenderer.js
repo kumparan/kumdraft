@@ -5,6 +5,7 @@ import TodoBlock from './blocks/todo';
 import ImageBlock from './blocks/image';
 import BreakBlock from './blocks/break';
 import TwitterBlock from './blocks/twitter';
+import YoutubeBlock from './blocks/youtube';
 
 import { Block } from '../util/constants';
 
@@ -42,6 +43,13 @@ export default (setEditorState, getEditorState) => (contentBlock) => {
         };
         case Block.TWITTER: return {
             component: TwitterBlock,
+            props: {
+                setEditorState,
+                getEditorState,
+            },
+        };
+        case Block.YOUTUBE: return {
+            component: YoutubeBlock,
             props: {
                 setEditorState,
                 getEditorState,

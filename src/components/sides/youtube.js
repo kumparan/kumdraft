@@ -8,10 +8,9 @@ import MatchYoutubeURL from '../../helpers/MatchYoutubeURL';
 
 export default class YoutubeButton extends Component {
     static propTypes = {
-        setEditorState: PropTypes.func,
-        getEditorState: PropTypes.func
-    };
-
+        setEditorState: PropTypes.func.isRequired,
+        getEditorState: PropTypes.func.isRequired
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -20,35 +19,32 @@ export default class YoutubeButton extends Component {
         this.onClick = this._onClick.bind(this);
         this.onChange = this._onChange.bind(this);
     }
-
     _onClick() {
         const { url } = this.state;
         if (url !== '' && url.length > 0) {
             const isValid = MatchYoutubeURL(url);
             if (isValid) {
                 const src = url.replace('/watch?v=', '/embed/');
-                const data = {src};
-                const entityKey = Entity.create('youtube', 'IMMUTABLE', data);
-                this.props.setEditorState(
-                    AtomicBlockUtils.insertAtomicBlock(
-                        this.props.getEditorState(),
-                        entityKey,
-                        ' ',
-                    )
-                );
-                // this.props.setEditorState(addNewBlock(
-                //     this.props.getEditorState(),
-                //     Block.ATOMIC, {
-                //         type: 'youtube',
-                //         src
-                //     }
-                // ));
+                const data = { src };
+                // const entityKey = Entity.create('youtube', 'IMMUTABLE', data);
+                // this.props.setEditorState(
+                //     AtomicBlockUtils.insertAtomicBlock(
+                //         this.props.getEditorState(),
+                //         entityKey,
+                //         ' ',
+                //     )
+                // );
+                this.props.setEditorState(addNewBlock(
+                    this.props.getEditorState(),
+                    Block.YOUTUBE, {
+                        src
+                    }
+                ));
             } else {
                 alert('Not a Youtube url');
             }
         }
     }
-
     _onChange(event) {
         this.setState({ url: event.currentTarget.value });
     }

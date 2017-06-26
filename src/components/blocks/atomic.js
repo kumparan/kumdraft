@@ -5,8 +5,12 @@ import React, { Component } from 'react';
 import { Map } from 'immutable';
 import { EditorBlock, EditorState, Entity, SelectionState } from 'draft-js';
 
-class AtomicBlock extends Component {
-    constructor(props){
+export default class AtomicBlock extends Component {
+    static propTypes = {
+        block: PropTypes.object,
+        getEditorState: PropTypes.func,
+    };
+    constructor(props) {
         super(props);
         this.focusBlock = this._focusBlock.bind(this);
     }
@@ -45,7 +49,7 @@ class AtomicBlock extends Component {
             );
         }
         if (type === 'youtube') {
-            const {src} = entity.getData();
+            const { src } = entity.getData();
             return (
                 <div className="video-container">
                     <iframe width="560" height="315" src={src} frameBorder="0" allowFullScreen />
@@ -55,10 +59,3 @@ class AtomicBlock extends Component {
         return <p>No supported block for {type}</p>;
     }
 };
-
-AtomicBlock.propTypes = {
-    block: PropTypes.object,
-    getEditorState: PropTypes.func,
-};
-
-export default AtomicBlock;

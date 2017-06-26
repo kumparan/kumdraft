@@ -18,9 +18,7 @@ export const findValidURL = (contentBlock, callback) => {
 }
 
 const Linkify = (props) => {
-  console.log('propschildren', props);
   const decoratedText = props.decoratedText;
-  console.log(decoratedText);
   const links = _linkifyIt.match(decoratedText);
   const href = links && links[0] ? links[0].url : '';
   return (<a 

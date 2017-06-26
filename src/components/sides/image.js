@@ -5,26 +5,19 @@ import { addNewBlock } from '../../model';
 import { Block } from '../../util/constants';
 
 export default class ImageButton extends React.Component {
-
     static propTypes = {
-        setEditorState: PropTypes.func,
-        getEditorState: PropTypes.func,
-        close: PropTypes.func,
-    };
-
-    constructor(props) {
-        super(props);
-
-        this.onClick = this.onClick.bind(this);
-        this.onChange = this.onChange.bind(this);
+        setEditorState: PropTypes.func.isRequired,
+        getEditorState: PropTypes.func.isRequired
     }
-
-    onClick() {
-        this.input.value = null;
-        this.input.click();
+    constructor() {
+        super();
+        this.onClick = this._onClick.bind(this);
+        this.onChange = this._onChange.bind(this);
     }
-
-
+    _onClick() {
+        this._input.value = null;
+        this._input.click();
+    }
     /*
     This is an example of how an image button can be added
     on the side control. This Button handles the image addition locally
@@ -32,11 +25,10 @@ export default class ImageButton extends React.Component {
     images to your server first, then get the image url in return and then
     add to the editor.
     */
-    onChange(e) {
+    _onChange(e) {
         // e.preventDefault();
         const file = e.target.files[0];
         if (file.type.indexOf('image/') === 0) {
-            // console.log(this.props.getEditorState());
             // eslint-disable-next-line no-undef
             const src = URL.createObjectURL(file);
             this.props.setEditorState(addNewBlock(
@@ -46,22 +38,19 @@ export default class ImageButton extends React.Component {
                 }
             ));
         }
-        // this.props.close();
     }
-
     render() {
         return (
             <button
                 className="md-sb-button md-sb-img-button"
                 type="button"
                 onClick={this.onClick}
-                title="Add an Image"
-            >
+                title="Add an Image">
                 <i className="fa fa-image" />
                 <input
                     type="file"
                     accept="image/*"
-                    ref={(c) => { this.input = c; }}
+                    ref={(c) => { this._input = c; }}
                     onChange={this.onChange}
                     style={{ display: 'none' }}
                 />

@@ -16,11 +16,14 @@ function addScript(src, cb) {
     }
 }
 
-class TwitterBlock extends Component {
+export default class TwitterBlock extends Component {
+    static propTypes = {
+        id: PropTypes.string
+    }
     constructor(props) {
         super(props);
         this.state = {
-            renderHTML: <blockquote className="twitter-tweet tw-align-center" style={{ maxWidth: '300px', margin: '0 auto' }} >
+            renderHTML: <blockquote className="twitter-tweet tw-align-center">
                 <a ref={(c) => this._div = c}></a>
             </blockquote>
         };
@@ -36,7 +39,7 @@ class TwitterBlock extends Component {
                 if (typeof (resolve) === 'undefined') {
                     console.log('Tweet is not available');
                     this.setState({
-                        renderHTML: <blockquote className="twitter-tweet tw-align-center" style={{ maxWidth: '300px', margin: '0 auto' }} >
+                        renderHTML: <blockquote className="twitter-tweet tw-align-center">
                             <h2>Tweet is not available</h2>
                         </blockquote>
                     })
@@ -76,9 +79,3 @@ class TwitterBlock extends Component {
         );
     }
 }
-
-TwitterBlock.propTypes = {
-    id: PropTypes.string
-}
-
-export default TwitterBlock;

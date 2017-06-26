@@ -26,7 +26,7 @@ export const StringToTypeMap = {
 This function is called before text is input in a block in `draft-js`. It checks
 whether the input string (first 2 cahracters only) is present in the `StringToTypeMap`
 mapping or not. If present, it converts the current block's type and called the `editor`'s
-`onChange` function. Otherwise, does nothing. By defualt, the above key-value mapping
+`onChange` function. Otherwise, does nothing. By default, the above key-value mapping
 is passed. In custom implementation, users can pass their own mapping or extend
 the current one.
 */
