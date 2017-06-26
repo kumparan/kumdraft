@@ -1,7 +1,7 @@
 // import QuoteCaptionBlock from './blocks/blockquotecaption';
 // import CaptionBlock from './blocks/caption';
 import AtomicBlock from './blocks/atomic';
-// import TodoBlock from './blocks/todo';
+import TodoBlock from './blocks/todo';
 import ImageBlock from './blocks/image';
 import BreakBlock from './blocks/break';
 import TwitterBlock from './blocks/twitter';
@@ -26,13 +26,13 @@ export default (setEditorState, getEditorState) => (contentBlock) => {
                 getEditorState,
             },
         };
-        // case Block.TODO: return {
-        //     component: TodoBlock,
-        //     props: {
-        //         setEditorState,
-        //         getEditorState,
-        //     },
-        // };
+        case Block.TODO: return {
+            component: TodoBlock,
+            props: {
+                setEditorState,
+                getEditorState,
+            },
+        };
         case Block.IMAGE: return {
             component: ImageBlock,
             props: {
