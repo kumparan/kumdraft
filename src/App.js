@@ -26,6 +26,8 @@ import {
 import MatchTwitterURL from './helpers/MatchTwitterURL';
 import MatchYoutubeURL from './helpers/MatchYoutubeURL';
 import ImageButton from './components/sides/image';
+import TwitterButton from './components/sides/twitter';
+import YoutubeButton from './components/sides/youtube';
 
 class App extends Component {
   constructor() {
@@ -309,6 +311,12 @@ class App extends Component {
         <ImageButton
           setEditorState={this.onChange}
           getEditorState={() => this.state.editorState} />
+        <TwitterButton
+          setEditorState={this.onChange}
+          getEditorState={() => this.state.editorState} />
+        <YoutubeButton
+          setEditorState={this.onChange}
+          getEditorState={() => this.state.editorState} />
         {/*<div>
           <button onClick={this.undo} disabled={editorState.getUndoStack().isEmpty()}>
             <i className="fa fa-undo" />
@@ -475,6 +483,11 @@ class App extends Component {
             <i className="fa fa-youtube" />
           </button>
         </div>*/}
+        <div>
+          <button onClick={() => {
+            console.log(convertToRaw(this.state.editorState.getCurrentContent()));  
+          }}>Log State</button>
+        </div>
         <div style={{ borderTop: '1px solid black' }}>
           <Editor
             editorState={this.state.editorState}

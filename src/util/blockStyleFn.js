@@ -26,6 +26,10 @@ export default (block) => {
         }
         case Block.IMAGE:
             return `${BASE_BLOCK_CLASS} ${BASE_BLOCK_CLASS}-image`;
+        case Block.TWITTER:
+            return `${BASE_BLOCK_CLASS} ${BASE_BLOCK_CLASS}-twitter`;
+        case Block.YOUTUBE:
+            return `${BASE_BLOCK_CLASS} ${BASE_BLOCK_CLASS}-youtube`;
         case Block.BLOCKQUOTE_CAPTION: {
             const cls = `${BASE_BLOCK_CLASS} ${BASE_BLOCK_CLASS}-quote`;
             return `${cls} md-RichEditor-blockquote ${BASE_BLOCK_CLASS}-quote-caption`;

@@ -19,6 +19,12 @@ const RenderMap = Map({
     [Block.IMAGE]: {
         element: 'figure',
     },
+    [Block.TWITTER]: {
+        element: 'div',
+    },
+    [Block.YOUTUBE]: {
+        element: 'div',
+    },
     [Block.BREAK]: {
         element: 'div',
     },

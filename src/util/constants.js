@@ -23,6 +23,8 @@ export const Block = {
     TODO: 'todo',
     IMAGE: 'atomic:image',
     BREAK: 'atomic:break',
+    TWITTER: 'atomic:twitter',
+    YOUTUBE: 'atomic:youtube',
 };
 
 export const Inline = {
